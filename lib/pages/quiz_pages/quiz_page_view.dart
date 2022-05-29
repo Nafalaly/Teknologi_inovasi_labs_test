@@ -40,7 +40,7 @@ class QuizDashboard extends StatelessWidget {
             context.read<QuizPageBloc>().add(QuizPagePlayHit());
           },
           child: BlocListener<QuizPageBloc, QuizPageState>(
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state.quizState is QuizNotReady) {
                 showWarning(
                     context: context,
@@ -48,7 +48,7 @@ class QuizDashboard extends StatelessWidget {
                     backgroundColor: mainColor,
                     icon: Icons.warning);
               } else if (state.quizState is QuizReadyToStart) {
-                Navigator.push(
+                await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (_) => BlocProvider(
@@ -57,6 +57,7 @@ class QuizDashboard extends StatelessWidget {
                             child: const PlayQuizPage(),
                           )),
                 );
+                Navigator.pop(context);
               }
             },
             child: Container(
@@ -67,7 +68,7 @@ class QuizDashboard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('Play it', style: blackFontStyle2),
+                  Text('Mainkan', style: blackFontStyle2),
                   const SizedBox(width: 10),
                   Icon(
                     Icons.arrow_circle_right_sharp,

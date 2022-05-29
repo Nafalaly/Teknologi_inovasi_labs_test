@@ -95,12 +95,22 @@ class Dashboard extends StatelessWidget {
                       )),
             );
           }),
+      _TestDashboardClass(
+          title: 'Apa yang anda ketahui tentang functional programming',
+          subTitle: 'Menurut saya..',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const FunctionalProgrammingPage()),
+            );
+          }),
     ];
     return Container(
       padding: const EdgeInsets.all(defaultMargin),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Soal :', style: blackFontStyle),
           const SizedBox(height: 10),

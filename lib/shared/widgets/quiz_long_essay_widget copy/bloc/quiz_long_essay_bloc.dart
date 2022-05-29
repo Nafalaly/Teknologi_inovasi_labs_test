@@ -27,6 +27,7 @@ class QuizLongEssayBloc extends Bloc<QuizLongEssayEvent, QuizLongEssayState> {
             inputState: FormBadInputState(message: 'Pertanyaan harus diisi')));
         emit(
             state.copyWith(inputState: const FormInputIdle(), essayAnswer: ''));
+        return;
       }
       switch (state.validator()) {
         case 0:

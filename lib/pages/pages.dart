@@ -26,3 +26,4 @@ part 'quiz_pages/play_page/widgets/quad_extra_choice/quad_extra_choice_widget.da
 part 'quiz_pages/play_page/widgets/multi_extra_choice/multi_extra_choice_widget.dart';
 part 'quiz_pages/play_page/widgets/short_essay/short_choice_widget.dart';
 part 'quiz_pages/play_page/widgets/long_essay/long_choice_widget.dart';
+part 'functional_prg_page/functional_view.dart';

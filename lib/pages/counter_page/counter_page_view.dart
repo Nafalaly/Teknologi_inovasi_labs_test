@@ -12,7 +12,7 @@ class CounterPage extends StatelessWidget {
           CustomAppBar(
             title: 'Counter App',
             context: context,
-            subtitle: '',
+            subtitle: 'Klik Tombol',
           ),
           Container(
             height: DeviceScreen.devHeight - 100,

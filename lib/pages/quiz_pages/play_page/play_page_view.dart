@@ -25,9 +25,9 @@ class PlayQuizPage extends StatelessWidget {
                 padding: const EdgeInsets.all(defaultMargin),
                 color: greyBackground,
                 child: BlocListener<PlayPageBloc, PlayPageState>(
-                  listener: (context, state) {
+                  listener: (context, state) async {
                     if (state.gameState is GameOver) {
-                      Navigator.push(
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => BlocProvider(
@@ -38,6 +38,7 @@ class PlayQuizPage extends StatelessWidget {
                                   ),
                                 )),
                       );
+                      Navigator.pop(context);
                     }
                   },
                   child: ListView(

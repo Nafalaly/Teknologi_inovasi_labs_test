@@ -33,6 +33,8 @@ class QuizMultipleChoiceExtraBloc
       if (mainPageBloc.state.currentQuiz.quizTitle == '') {
         emit(state.copyWith(
             inputState: FormBadInputState(message: 'Pertanyaan harus diisi')));
+        emit(state.copyWith(inputState: const FormInputIdle()));
+        return;
       }
       switch (state.validator()) {
         case 0:

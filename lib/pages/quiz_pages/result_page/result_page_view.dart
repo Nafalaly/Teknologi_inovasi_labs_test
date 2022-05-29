@@ -12,7 +12,17 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Center(child: Text('Game Over\nJawaban benar $score/$total')),
+      body: Container(
+        padding: const EdgeInsets.all(defaultMargin),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Terimakasih sudah bermain',
+                  style: headerFontStyle2.copyWith(color: mainColor)),
+              Text('Jawaban kamu benar $score/$total', style: blackFontStyle),
+            ]),
+      ),
     ));
   }
 }
