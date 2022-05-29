@@ -40,14 +40,35 @@ class MultipleChoiceModel extends QuizModel {
 
 class MultipleChoiceWtExtraEssayModel extends QuizModel {
   List<ChoiceModel> choices;
-  String answer;
-  MultipleChoiceWtExtraEssayModel(
-      {required this.choices, required this.answer});
+  String essayAnswer;
+  bool isEssayTrue;
+  MultipleChoiceWtExtraEssayModel({
+    required this.choices,
+    required this.essayAnswer,
+    required this.isEssayTrue,
+  });
 
   bool isUserAnswerCorrect(
       {required int userAnswerIndex, required String userAnswerEssay}) {
     return choices[userAnswerIndex].isTrueAnswer &&
-        userAnswerEssay.toLowerCase() == answer.toLowerCase();
+        userAnswerEssay.toLowerCase() == essayAnswer.toLowerCase();
+  }
+}
+
+class QuadChoiceWtExtraEssayModel extends QuizModel {
+  List<ChoiceModel> choices;
+  String essayAnswer;
+  bool isEssayTrue;
+  QuadChoiceWtExtraEssayModel({
+    required this.choices,
+    required this.essayAnswer,
+    required this.isEssayTrue,
+  });
+
+  bool isUserAnswerCorrect(
+      {required int userAnswerIndex, required String userAnswerEssay}) {
+    return choices[userAnswerIndex].isTrueAnswer &&
+        userAnswerEssay.toLowerCase() == essayAnswer.toLowerCase();
   }
 }
 

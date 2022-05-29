@@ -190,6 +190,12 @@ class QuizDashboard extends StatelessWidget {
             return QuizQuadWidget(bloc: context.read<QuizPageBloc>());
           case "Piliihan Ganda (>4)":
             return QuizMultipleChoiceWidget(bloc: context.read<QuizPageBloc>());
+          case "Piliihan Ganda (4) + User Input":
+            return QuizQuadChoiceExtraWidget(
+                bloc: context.read<QuizPageBloc>());
+          case "Piliihan Ganda (>4) + User Input":
+            return QuizMultipleChoiceExtraWidget(
+                bloc: context.read<QuizPageBloc>());
           default:
             return const SizedBox();
         }
