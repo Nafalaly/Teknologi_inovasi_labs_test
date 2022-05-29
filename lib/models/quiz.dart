@@ -1,8 +1,8 @@
 part of 'models.dart';
 
 abstract class QuizModel {
-  late String quizTitle = '';
-  late bool totalAnswer = false;
+  String quizTitle = '';
+  bool totalAnswer = false;
 }
 
 class ShortEssayModel extends QuizModel {
@@ -45,12 +45,12 @@ class MultipleChoiceWtExtraEssayModel extends QuizModel {
   MultipleChoiceWtExtraEssayModel({
     required this.choices,
     required this.essayAnswer,
-    required this.isEssayTrue,
+    this.isEssayTrue = false,
   });
 
   bool isUserAnswerCorrect(
       {required int userAnswerIndex, required String userAnswerEssay}) {
-    return choices[userAnswerIndex].isTrueAnswer &&
+    return choices[userAnswerIndex].isTrueAnswer ||
         userAnswerEssay.toLowerCase() == essayAnswer.toLowerCase();
   }
 }
@@ -62,12 +62,15 @@ class QuadChoiceWtExtraEssayModel extends QuizModel {
   QuadChoiceWtExtraEssayModel({
     required this.choices,
     required this.essayAnswer,
-    required this.isEssayTrue,
+    this.isEssayTrue = false,
   });
 
   bool isUserAnswerCorrect(
       {required int userAnswerIndex, required String userAnswerEssay}) {
-    return choices[userAnswerIndex].isTrueAnswer &&
+    if (userAnswerIndex == -1) {
+      userAnswerIndex = 0;
+    }
+    return choices[userAnswerIndex].isTrueAnswer ||
         userAnswerEssay.toLowerCase() == essayAnswer.toLowerCase();
   }
 }

@@ -14,10 +14,18 @@ class QuizPageState {
   late List<QuizModel> listOfQuestions;
   late String selectedQuizType;
   int tabIndex;
+  FormInputState inputState;
+  QuizState quizState;
   late QuizModel currentQuiz = QuadChoiceModel(choices: []);
+
+  bool validToStart() {
+    return listOfQuestions.isNotEmpty;
+  }
 
   QuizPageState({
     this.tabIndex = 0,
+    this.quizState = const QuizIdle(),
+    this.inputState = const FormInputIdle(),
     QuizModel? currentQuiz,
     String? selectedQuizType,
     List<QuizModel>? listOfQuestions,
@@ -41,13 +49,33 @@ class QuizPageState {
     int? tabIndex,
     String? selectedQuizType,
     QuizModel? currentQuiz,
+    FormInputState? inputState,
+    QuizState? quizState,
     List<QuizModel>? listOfQuestions,
   }) {
     return QuizPageState(
+      quizState: quizState ?? this.quizState,
+      inputState: inputState ?? this.inputState,
       tabIndex: tabIndex ?? this.tabIndex,
       selectedQuizType: selectedQuizType ?? this.selectedQuizType,
       listOfQuestions: listOfQuestions ?? this.listOfQuestions,
       currentQuiz: currentQuiz ?? this.currentQuiz,
     );
   }
+}
+
+abstract class QuizState {
+  const QuizState();
+}
+
+class QuizReadyToStart extends QuizState {
+  const QuizReadyToStart();
+}
+
+class QuizIdle extends QuizState {
+  const QuizIdle();
+}
+
+class QuizNotReady extends QuizState {
+  const QuizNotReady();
 }

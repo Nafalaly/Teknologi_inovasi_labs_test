@@ -19,6 +19,8 @@ class QuizPageSwitchTabEvent extends QuizPageEvent {
   QuizPageSwitchTabEvent({required this.index});
 }
 
+class QuizPagePlayHit extends QuizPageEvent {}
+
 class QuizPageAddQuiz extends QuizPageEvent {
   final QuizModel newQuiz;
   QuizPageAddQuiz({required this.newQuiz});

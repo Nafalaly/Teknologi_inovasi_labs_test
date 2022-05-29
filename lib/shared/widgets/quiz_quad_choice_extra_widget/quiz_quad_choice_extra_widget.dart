@@ -11,12 +11,11 @@ class QuizQuadChoiceExtraWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => QuizMultipleChoiceExtraBloc(mainPageBloc: bloc),
+      create: (context) => QuizQuadChoiceExtraBloc(mainPageBloc: bloc),
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: defaultMargin),
         width: DeviceScreen.devWidth,
-        child: BlocBuilder<QuizMultipleChoiceExtraBloc,
-            QuizMultipleChoiceExtraState>(
+        child: BlocBuilder<QuizQuadChoiceExtraBloc, QuizQuadChoiceExtraState>(
           builder: (context, state) {
             return Column(
               children: [
@@ -38,8 +37,8 @@ class QuizQuadChoiceExtraWidget extends StatelessWidget {
                         child: TextField(
                           controller: state.textfieldController[index],
                           onChanged: (val) => context
-                              .read<QuizMultipleChoiceExtraBloc>()
-                              .add(QuizMultipleChoiceExtraChangeTitleChoice(
+                              .read<QuizQuadChoiceExtraBloc>()
+                              .add(QuizQuadChoiceExtraChangeTitleChoice(
                                   index: index, newTitle: val)),
                           style: blackFontStyle2,
                           decoration: InputDecoration(
@@ -53,8 +52,8 @@ class QuizQuadChoiceExtraWidget extends StatelessWidget {
                         value: state.choices[index].isTrueAnswer,
                         onChanged: (val) {
                           if (val!) {
-                            context.read<QuizMultipleChoiceExtraBloc>().add(
-                                QuizMultipleChoiceExtraSetChoiceAsTrueAnswer(
+                            context.read<QuizQuadChoiceExtraBloc>().add(
+                                QuizQuadChoiceExtraSetChoiceAsTrueAnswer(
                                     index: index));
                           }
                         },
@@ -78,9 +77,8 @@ class QuizQuadChoiceExtraWidget extends StatelessWidget {
                       child: TextField(
                         controller: essayController,
                         onChanged: (val) => context
-                            .read<QuizMultipleChoiceExtraBloc>()
-                            .add(QuizMultipleChoiceExtraChangeEssay(
-                                newTitle: val)),
+                            .read<QuizQuadChoiceExtraBloc>()
+                            .add(QuizQuadChoiceExtraChangeEssay(newTitle: val)),
                         style: blackFontStyle2,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -88,16 +86,17 @@ class QuizQuadChoiceExtraWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    BlocBuilder<QuizMultipleChoiceExtraBloc,
-                        QuizMultipleChoiceExtraState>(
+                    BlocBuilder<QuizQuadChoiceExtraBloc,
+                        QuizQuadChoiceExtraState>(
                       builder: (context, state) {
                         return CheckboxListTile(
                           activeColor: Colors.green,
                           value: state.essayIsTrue,
                           onChanged: (val) {
                             if (val!) {
-                              context.read<QuizMultipleChoiceExtraBloc>().add(
-                                  QuizMultipleChoiceExtraEssayMarkAsTrue());
+                              context
+                                  .read<QuizQuadChoiceExtraBloc>()
+                                  .add(QuizQuadChoiceExtraEssayMarkAsTrue());
                             }
                           },
                           title: Text('Tandai sebagai jawaban yang benar',
@@ -108,8 +107,7 @@ class QuizQuadChoiceExtraWidget extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 15),
-                BlocListener<QuizMultipleChoiceExtraBloc,
-                    QuizMultipleChoiceExtraState>(
+                BlocListener<QuizQuadChoiceExtraBloc, QuizQuadChoiceExtraState>(
                   listener: (context, state) {
                     if (state.inputState is FormBadInputState) {
                       showWarning(
@@ -132,8 +130,8 @@ class QuizQuadChoiceExtraWidget extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         context
-                            .read<QuizMultipleChoiceExtraBloc>()
-                            .add(QuizMultipleChoiceExtraAttemptAdd());
+                            .read<QuizQuadChoiceExtraBloc>()
+                            .add(QuizQuadChoiceExtraAttemptAdd());
                       },
                       style: ButtonStyle(
                           elevation: MaterialStateProperty.all(5),

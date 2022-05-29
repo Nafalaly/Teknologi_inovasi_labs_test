@@ -39,7 +39,9 @@ class QuizQuadChoiceExtraBloc
           createQuiz();
           state.clearTextField();
           emit(state.copyWith(textfieldController: state.textfieldController));
-          emit(state.copyWith(inputState: const FormInputSucess()));
+          emit(state.copyWith(
+              inputState: const FormInputSucess(),
+              newChoices: List.generate(4, (index) => ChoiceModel(title: ''))));
           break;
         case 501:
           emit(state.copyWith(
@@ -76,6 +78,9 @@ class QuizQuadChoiceExtraBloc
         essayAnswer: state.essayTitle,
         isEssayTrue: state.essayIsTrue);
     newQuiz.quizTitle = mainPageBloc.state.currentQuiz.quizTitle;
+    if (newQuiz.essayAnswer == '') {
+      newQuiz.essayAnswer = 'No answer';
+    }
     mainPageBloc.add(QuizPageAddQuiz(newQuiz: newQuiz));
   }
 }

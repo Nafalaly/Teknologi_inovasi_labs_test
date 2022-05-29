@@ -39,7 +39,9 @@ class QuizMultipleChoiceBloc
           createQuiz();
           state.clearTextField();
           emit(state.copyWith(textfieldController: state.textfieldController));
-          emit(state.copyWith(inputState: const FormInputSucess()));
+          emit(state.copyWith(
+              inputState: const FormInputSucess(),
+              newChoices: List.generate(4, (index) => ChoiceModel(title: ''))));
           break;
         case 501:
           emit(state.copyWith(

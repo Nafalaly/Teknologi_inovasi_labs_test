@@ -20,12 +20,66 @@ class QuizDashboard extends StatelessWidget {
             width: DeviceScreen.devWidth,
             color: greyBackground,
             child: Column(
-              children: [_tabWidget(), _mainDisplay()],
+              children: [
+                _playButton(),
+                _tabWidget(),
+                _mainDisplay(),
+              ],
             ),
           ),
         ],
       ),
     ));
+  }
+
+  Widget _playButton() {
+    return BlocBuilder<QuizPageBloc, QuizPageState>(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            context.read<QuizPageBloc>().add(QuizPagePlayHit());
+          },
+          child: BlocListener<QuizPageBloc, QuizPageState>(
+            listener: (context, state) {
+              if (state.quizState is QuizNotReady) {
+                showWarning(
+                    context: context,
+                    message: 'Dibutuhkan Soal miminal 1',
+                    backgroundColor: mainColor,
+                    icon: Icons.warning);
+              } else if (state.quizState is QuizReadyToStart) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => BlocProvider(
+                            create: (context) => PlayPageBloc(
+                                listOfQuestions: state.listOfQuestions),
+                            child: const PlayQuizPage(),
+                          )),
+                );
+              }
+            },
+            child: Container(
+              height: 50,
+              color: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
+              width: DeviceScreen.devWidth,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('Play it', style: blackFontStyle2),
+                  const SizedBox(width: 10),
+                  Icon(
+                    Icons.arrow_circle_right_sharp,
+                    color: mainColor,
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget _mainDisplay() {
@@ -47,18 +101,15 @@ class QuizDashboard extends StatelessWidget {
 
   Widget _showListOfQuestions() {
     return Container(
-      height: DeviceScreen.devHeight - (defaultTabBarHeight + 100),
+      height: DeviceScreen.devHeight - (defaultTabBarHeight + 100 + 50),
       width: DeviceScreen.devWidth,
       padding: const EdgeInsets.all(15),
       child: BlocBuilder<QuizPageBloc, QuizPageState>(
         builder: (context, state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+          return ListView(
             children: [
               Text('Soal sudah dibuat :', style: blackFontStyle),
-              ListView(
-                shrinkWrap: true,
+              Column(
                 children: List.generate(
                     state.listOfQuestions.length,
                     (index) => Container(
@@ -87,7 +138,7 @@ class QuizDashboard extends StatelessWidget {
 
   Widget _createScreen(BuildContext context) {
     return Container(
-      height: DeviceScreen.devHeight - (defaultTabBarHeight + 100),
+      height: DeviceScreen.devHeight - (defaultTabBarHeight + 100 + 50),
       width: DeviceScreen.devWidth,
       padding: const EdgeInsets.all(15),
       child: ListView(
@@ -106,15 +157,22 @@ class QuizDashboard extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
-                child: TextField(
-                  controller: questionTitleController,
-                  onChanged: (val) => context
-                      .read<QuizPageBloc>()
-                      .add(QuizPageQuestionTitleChanged(title: val)),
-                  style: blackFontStyle2,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintStyle: greyFontStyle,
+                child: BlocListener<QuizPageBloc, QuizPageState>(
+                  listener: (context, state) {
+                    if (state.inputState is FormInputSucess) {
+                      questionTitleController.clear();
+                    }
+                  },
+                  child: TextField(
+                    controller: questionTitleController,
+                    onChanged: (val) => context
+                        .read<QuizPageBloc>()
+                        .add(QuizPageQuestionTitleChanged(title: val)),
+                    style: blackFontStyle2,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: greyFontStyle,
+                    ),
                   ),
                 ),
               ),
@@ -198,6 +256,8 @@ class QuizDashboard extends StatelessWidget {
                 bloc: context.read<QuizPageBloc>());
           case "Essay Pendek":
             return QuizEssayShortWidget(bloc: context.read<QuizPageBloc>());
+          case "Essay Panjang":
+            return QuizEssayLongWidget(bloc: context.read<QuizPageBloc>());
           default:
             return const SizedBox();
         }
@@ -242,9 +302,21 @@ class QuizDashboard extends StatelessWidget {
                   height: defaultTabBarHeight,
                   width: DeviceScreen.devWidth / 2,
                   alignment: Alignment.center,
-                  child: Text('Pertanyaan',
-                      style: blackFontStyle2.copyWith(
-                          color: state.tabIndex == 1 ? mainColor : greyColor)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultMargin),
+                  child: Badge(
+                    badgeColor: Colors.red,
+                    showBadge: state.listOfQuestions.isNotEmpty ? true : false,
+                    badgeContent: Text('${state.listOfQuestions.length}',
+                        style: blackFontStyle3.copyWith(color: Colors.white)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Pertanyaan',
+                          style: blackFontStyle2.copyWith(
+                              color:
+                                  state.tabIndex == 1 ? mainColor : greyColor)),
+                    ),
+                  ),
                 ),
               )
             ],

@@ -30,6 +30,16 @@ String getQuizModelStr(QuizModel model) {
 QuizModel initQuizModelbyModel(QuizModel model) {
   if (model is QuadChoiceModel) {
     return QuadChoiceModel(choices: []);
+  } else if (model is QuadChoiceWtExtraEssayModel) {
+    return QuadChoiceWtExtraEssayModel(choices: [], essayAnswer: '');
+  } else if (model is MultipleChoiceModel) {
+    return MultipleChoiceModel(choices: []);
+  } else if (model is MultipleChoiceWtExtraEssayModel) {
+    return MultipleChoiceWtExtraEssayModel(choices: [], essayAnswer: '');
+  } else if (model is ShortEssayModel) {
+    return ShortEssayModel(answer: '');
+  } else if (model is LongEssayModel) {
+    return LongEssayModel(answer: '');
   }
   return QuadChoiceModel(choices: []);
 }

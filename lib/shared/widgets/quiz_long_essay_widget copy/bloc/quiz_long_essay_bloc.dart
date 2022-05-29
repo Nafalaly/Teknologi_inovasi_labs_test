@@ -6,23 +6,22 @@ import 'package:teknologi_inovasi_labs_test/models/models.dart';
 import 'package:teknologi_inovasi_labs_test/pages/quiz_pages/bloc/quiz_page_bloc.dart';
 import 'package:teknologi_inovasi_labs_test/shared/widgets/quiz_quad_choice_widget/bloc/quiz_quad_choice_bloc.dart';
 
-part 'quiz_short_essay_event.dart';
-part 'quiz_short_essay_state.dart';
+part 'quiz_long_essay_event.dart';
+part 'quiz_long_essay_state.dart';
 
-class QuizShortEssayBloc
-    extends Bloc<QuizShortEssayEvent, QuizShortEssayState> {
-  QuizShortEssayBloc({required this.mainPageBloc})
-      : super(QuizShortEssayState()) {
+class QuizLongEssayBloc extends Bloc<QuizLongEssayEvent, QuizLongEssayState> {
+  QuizLongEssayBloc({required this.mainPageBloc})
+      : super(QuizLongEssayState()) {
     on(mapEvent);
   }
 
   QuizPageBloc mainPageBloc;
 
   Future<void> mapEvent(
-      QuizShortEssayEvent event, Emitter<QuizShortEssayState> emit) async {
-    if (event is QuizEssayChanged) {
+      QuizLongEssayEvent event, Emitter<QuizLongEssayState> emit) async {
+    if (event is QuizEssayLongChanged) {
       emit(state.copyWith(essayAnswer: event.essay));
-    } else if (event is QuizEssayAttemptAdd) {
+    } else if (event is QuizEssayLongAttemptAdd) {
       if (mainPageBloc.state.currentQuiz.quizTitle == '') {
         emit(state.copyWith(
             inputState: FormBadInputState(message: 'Pertanyaan harus diisi')));
@@ -47,7 +46,7 @@ class QuizShortEssayBloc
   }
 
   void createQuiz() {
-    ShortEssayModel newQuiz = ShortEssayModel(answer: state.essayAnswer);
+    LongEssayModel newQuiz = LongEssayModel(answer: state.essayAnswer);
     newQuiz.quizTitle = mainPageBloc.state.currentQuiz.quizTitle;
     mainPageBloc.add(QuizPageAddQuiz(newQuiz: newQuiz));
   }
