@@ -74,7 +74,7 @@ class QuizDashboard extends StatelessWidget {
                                 style: blackFontStyle),
                             subtitle: Text(
                                 'Tipe soal :${getQuizModelStr(state.listOfQuestions[index])}',
-                                style: blackFontStyle2),
+                                style: greyFontStyle),
                           ),
                         )),
               ),
@@ -196,6 +196,8 @@ class QuizDashboard extends StatelessWidget {
           case "Piliihan Ganda (>4) + User Input":
             return QuizMultipleChoiceExtraWidget(
                 bloc: context.read<QuizPageBloc>());
+          case "Essay Pendek":
+            return QuizEssayShortWidget(bloc: context.read<QuizPageBloc>());
           default:
             return const SizedBox();
         }

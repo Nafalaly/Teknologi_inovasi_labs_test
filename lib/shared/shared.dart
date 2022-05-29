@@ -13,11 +13,13 @@ import 'package:teknologi_inovasi_labs_test/services/services.dart';
 import 'package:teknologi_inovasi_labs_test/shared/widgets/quiz_multiple_choice_extra_widget/bloc/quiz_multiple_choice_extra_bloc.dart';
 import 'package:teknologi_inovasi_labs_test/shared/widgets/quiz_multiple_choice_widget/bloc/quiz_multiple_choice_bloc.dart';
 import 'package:teknologi_inovasi_labs_test/shared/widgets/quiz_quad_choice_widget/bloc/quiz_quad_choice_bloc.dart';
+import 'package:teknologi_inovasi_labs_test/shared/widgets/quiz_short_essay_widget/bloc/quiz_short_essay_bloc.dart';
 
 part 'theme.dart';
 part 'value.dart';
 part 'widgets/custom_app_bar.dart';
 part 'widgets/quiz_quad_choice_widget/quiz_QuadChoice_widget.dart';
+part 'widgets/quiz_short_essay_widget/quiz_short_essay_widget.dart';
 part 'widgets/quiz_quad_choice_extra_widget/quiz_quad_choice_extra_widget.dart';
 part 'widgets/quiz_multiple_choice_widget/quiz_multiple_choice_widget.dart';
 part 'widgets/quiz_multiple_choice_extra_widget/quiz_multiple_choice_extra_widget.dart';
